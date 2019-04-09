@@ -1,12 +1,14 @@
 package xyz.brassgoggledcoders.techniques;
 
 import com.teamacronymcoders.base.BaseModFoundation;
+import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xyz.brassgoggledcoders.techniques.item.ItemWhip;
 
 import static xyz.brassgoggledcoders.techniques.Techniques.*;
 
@@ -15,7 +17,7 @@ public class Techniques extends BaseModFoundation<Techniques> {
     public static final String ID = "techniques";
     public static final String NAME = "Techniques";
     public static final String VERSION = "@VERSION@";
-    public static final String DEPEND = "required-after:base[0.0.0,)";
+    public static final String DEPEND = "required-after:base@[0.0.0,)";
 
     public Techniques() {
         super(ID, NAME, VERSION, CreativeTabs.MISC);
@@ -28,6 +30,12 @@ public class Techniques extends BaseModFoundation<Techniques> {
     }
 
     @Override
+    public void registerItems(ItemRegistry registry) {
+        super.registerItems(registry);
+        registry.register(new ItemWhip());
+    }
+
+    @Override
     @EventHandler
     public void init(FMLInitializationEvent event) {
         super.init(event);
@@ -37,6 +45,11 @@ public class Techniques extends BaseModFoundation<Techniques> {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+    }
+
+    @Override
+    public boolean hasConfig() {
+        return false;
     }
 
     @Override
