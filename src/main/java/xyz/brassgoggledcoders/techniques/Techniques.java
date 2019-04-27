@@ -3,12 +3,18 @@ package xyz.brassgoggledcoders.techniques;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xyz.brassgoggledcoders.techniques.api.techniquetool.BasicTechniqueTool;
+import xyz.brassgoggledcoders.techniques.api.techniquetool.ITechniqueTool;
+import xyz.brassgoggledcoders.techniques.api.techniqueuser.BasicTechniqueUser;
+import xyz.brassgoggledcoders.techniques.api.techniqueuser.ITechniqueUser;
 import xyz.brassgoggledcoders.techniques.item.ItemWhip;
+import xyz.brassgoggledcoders.techniques.nbt.NBTEmptyStorage;
 
 import static xyz.brassgoggledcoders.techniques.Techniques.*;
 
@@ -27,6 +33,7 @@ public class Techniques extends BaseModFoundation<Techniques> {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        registerCapabilities();
     }
 
     @Override
@@ -55,5 +62,11 @@ public class Techniques extends BaseModFoundation<Techniques> {
     @Override
     public Techniques getInstance() {
         return this;
+    }
+
+
+    public void registerCapabilities() {
+        CapabilityManager.INSTANCE.register(ITechniqueTool.class, new NBTEmptyStorage<>(), BasicTechniqueTool::new);
+        CapabilityManager.INSTANCE.register(ITechniqueUser.class, new NBTEmptyStorage<>(), BasicTechniqueUser::new);
     }
 }
